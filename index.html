@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Kosugi&display=swap" rel="stylesheet">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="static/css/style.css">
+	<title>
+		Tris - Design - Cavone Antonio 4ITIAB
+	</title>
+</head>
+<body>			
+	<div class="content">
+		<div class="title">
+			<h1>Gioco del Tris</h1>
+		</div>
+		<div class="text1">
+			<h3>Cavone Antonio - 4ITIAB</h3>
+		</div>
+		<div class="description">
+			<p>
+				Ogni giocatore sceglie un simbolo e inizia a giocare. Il primo giocatore inizia piazzando il suo simbolo in una casella vuota della griglia, il secondo giocatore fa lo stesso, piazzando il suo simbolo in un'altra casella vuota Il giocatore che riesce a creare una linea vincente per primo vince la partita. Se tutte le caselle sono piene e nessuno ha vinto, il gioco finisce in pareggio.
+			</p>
+		</div>
+		<div id="output">
+			Tocca al giocatore 1
+		</div>
+		<div class="trisGrid">
+			<div class="row">
+				<div class="col">
+					<a href="#" class="gridBtn" data-row = "0" data-col = "0"></a>
+				</div>
+				<div class="col">
+					<a href="#" class="gridBtn" data-row = "0" data-col = "1" data-row = "0"></a>
+				</div>
+				<div class="col">
+					<a href="#" class="gridBtn" data-row = "0" data-col = "2" data-row = "0"></a>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<a href="#" class="gridBtn" data-row = "1" data-col = "0"></a>
+				</div>
+				<div class="col">
+					<a href="#" class="gridBtn" data-row = "1" data-col = "1"></a>
+				</div>
+				<div class="col">
+					<a href="#" class="gridBtn" data-row = "1" data-col = "2"></a>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<a href="#" class="gridBtn" data-row = "2" data-col = "0"></a>
+				</div>
+				<div class="col">
+					<a href="#" class="gridBtn" data-row = "2" data-col = "1"></a>
+				</div>
+				<div class="col">
+					<a href="#" class="gridBtn" data-row = "2" data-col = "2"></a>
+				</div>
+			</div>
+		</div>
+		<button id="resetBtn">Reset</button>
+	</div>
+	<script type="text/javascript">
+
+		let grid = [
+		[null, null, null],
+		[null, null, null],
+		[null, null, null]
+		]
+
+		let output = document.querySelector("#output")
+		let reset = document.querySelector("#resetBtn")
+		let links = document.querySelectorAll(".gridBtn"),
+			currentPlayer = 1,
+    		cellIsOccupied = true
+
+
+		for(let i = 0; i < links.length; i++){
+			let link = links[i]
+			link.addEventListener("click", function(e){
+				e.preventDefault()
+        		cellIsOccupied = e.currentTarget.classList.contains("player2") || e.currentTarget.classList.contains("player1")	;			
+		        console.log(cellIsOccupied)
+				if(cellIsOccupied === false){
+					console.log(e.currentTarget.dataset)
+		          e.currentTarget.classList.toggle("player" + currentPlayer)
+		          let riga = e.currentTarget.dataset.row
+		          let colonna = e.currentTarget.dataset.col
+		          if(currentPlayer === 1){
+		          	grid[riga][colonna] = "X"
+		          }else{
+		          	grid[riga][colonna] = "O"
+		          }
+		          if(currentPlayer === 1){
+		            currentPlayer = 2
+		            output.innerHTML = "Tocca al giocatore 2"
+		          }else{
+		            currentPlayer = 1
+		            output.innerHTML = "Tocca al giocatore 1"
+		          }
+		        }
+			})
+		}
+
+		
+		reset.addEventListener("click", function(e){
+			window.location.reload()
+		})
+	</script>
+</body>
+</html>
